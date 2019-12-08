@@ -18,7 +18,7 @@ db.movies.aggregate([
 ])
 
 // sortByCount equivalente al anterior. De hecho, si ejecutas este pipeline con
-// { explain: true } verás que se transofrma en la consulta anterior!
+// { explain: true } verás que se transforma en la consulta anterior!
 db.movies.aggregate([
   {
     "$sortByCount": "$imdb.rating"

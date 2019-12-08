@@ -27,7 +27,7 @@ db.movies.aggregate([
   }
 ])
 
-// agrupando el número de directores que tiene la película, demistrabdi que
+// agrupando el número de directores que tiene la película, demostrando que
 // tenemos que validar los tipos para proteger algunas expresiones
 db.movies.aggregate([
   {

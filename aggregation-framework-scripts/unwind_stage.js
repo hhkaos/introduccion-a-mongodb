@@ -30,10 +30,10 @@ db.movies.aggregate([
   }
 ])
 
-// por desgracia obtuvimos demasiados resultados por años, así que en lugar de
-// realizar otra agrupación completa y coincidencia, simplemente vamos a añadir
-// unas etapas de agrupación ($group) y ordenación ($sort), aprovechándonos de
-// que los documentos están en el orden que queremos
+// como se obtienen demasiados resultados por años, en lugar de realizar otra
+// y coincidencia desde cero simplemente vamos a añadir unas etapas de
+// agrupación ($group) y ordenación ($sort), aprovechándonos de que los
+// documentos están en el orden que queremos
 db.movies.aggregate([
   {
     "$match": {
