@@ -1,10 +1,16 @@
-// reassign ``gravity`` field value
+/*****************************
+
+    Etapa: $addFields
+
+******************************/
+
+// reemplazar el valor del campo ``gravity``
 db.solarSystem.aggregate([{"$project": { "gravity": "$gravity.value" } }]);
 
-// adding ``name`` and removing ``_id`` from projection
+// añadir ``name`` y elimina ``_id`` de la proyección
 db.solarSystem.aggregate([{"$project": { "_id": 0, "name": 1, "gravity": "$gravity.value" } }])''
 
-// adding more fields to the projected document
+// añadir más cambios al documento proyectado
 db.solarSystem.aggregate([
 {"$project":{
     "_id": 0,
@@ -17,7 +23,7 @@ db.solarSystem.aggregate([
     "sma": "$sma.value" }
 }]);
 
-// using ``$addFields`` to generate the new computed field values
+// usar ``$addFields`` para generar nuevos campos
 db.solarSystem.aggregate([
 {"$addFields":{
     "gravity": "$gravity.value",
@@ -26,7 +32,7 @@ db.solarSystem.aggregate([
     "sma": "$sma.value"}
 }]);
 
-// combining ``$project`` with ``$addFields``
+// combinar ``$project`` con ``$addFields``
 db.solarSystem.aggregate([
 {"$project": {
     "_id": 0,

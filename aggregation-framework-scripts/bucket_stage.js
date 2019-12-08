@@ -1,4 +1,11 @@
-// showing that without a default, this can error if values can't be resolved
+/*****************************
+
+    Etapa: $bucket
+
+******************************/
+
+// mostrar que sin el campo "default", puede producir errores si existen valores
+// que no se puede asociar a los límites
 db.movies.aggregate([
   {
     "$bucket": {
@@ -8,7 +15,7 @@ db.movies.aggregate([
   }
 ])
 
-// protecting against the error
+// protegerse ante este error
 db.movies.aggregate([
   {
     "$bucket": {
@@ -19,7 +26,7 @@ db.movies.aggregate([
   }
 ])
 
-// using expressions to get the average per bucket
+// usar expresiones para conseguir el valor medio de los valores de un bucket
 db.movies.aggregate([
   {
     "$bucket": {
@@ -33,8 +40,8 @@ db.movies.aggregate([
   }
 ])
 
-// to get the count per bucket after we have specified an output, we have to
-// implicitly calculate it
+// hacer la cuenta por bucket después de haber especificado una salida, tenemos
+// que calcularla explicitamente
 db.movies.aggregate([
   {
     "$bucket": {

@@ -1,19 +1,27 @@
-// project fields ``numberOfMoons`` and ``name``
+/*****************************
+
+    Etapas: $limit, $skip, $count y $sort
+
+******************************/
+
+// ejemplos usando los métodos de los cursores (cursor.limit(), cursor.skip, ... )
+
+// proyectar campos ``numberOfMoons`` y ``name``
 db.solarSystem.find({}, {"_id": 0, "name": 1, "numberOfMoons": 1}).pretty();
 
-// count the number of documents
+// contar el número de documentos
 db.solarSystem.find({}, {"_id": 0, "name": 1, "numberOfMoons": 1}).count();
 
-// skip documents
+// saltar documentos
 db.solarSystem.find({}, {"_id": 0, "name": 1, "numberOfMoons": 1}).skip(5).pretty();
 
-// limit documents
+// limitar documentos
 db.solarSystem.find({}, {"_id": 0, "name": 1, "numberOfMoons": 1}).limit(5).pretty();
 
-// sort documents
+// ordernar documentos
 db.solarSystem.find({}, { "_id": 0, "name": 1, "numberOfMoons": 1 }).sort( {"numberOfMoons": -1 } ).pretty();
 
-// ``$limit`` stage
+// Etapa: ``$limit``
 db.solarSystem.aggregate([{
   "$project": {
     "_id": 0,
@@ -23,7 +31,7 @@ db.solarSystem.aggregate([{
 },
 { "$limit": 5  }]).pretty();
 
-// ``skip`` stage
+// Etapa: ``skip``
 db.solarSystem.aggregate([{
   "$project": {
     "_id": 0,
@@ -34,7 +42,7 @@ db.solarSystem.aggregate([{
   "$skip": 1
 }]).pretty()
 
-// ``$count`` stage
+// Etapa: ``$count``
 db.solarSystem.aggregate([{
   "$match": {
     "type": "Terrestrial planet"
@@ -49,7 +57,7 @@ db.solarSystem.aggregate([{
   "$count": "terrestrial planets"
 }]).pretty();
 
-// removing ``$project`` stage since it does not interfere with our count
+// Elimitar la etapa ``$project`` ya que no interfiere con nuestra cuenta
 db.solarSystem.aggregate([{
   "$match": {
     "type": "Terrestrial planet"
@@ -59,7 +67,7 @@ db.solarSystem.aggregate([{
 }]).pretty();
 
 
-// ``$sort`` stage
+// Etapa: ``$sort``
 db.solarSystem.aggregate([{
   "$project": {
     "_id": 0,
@@ -70,7 +78,7 @@ db.solarSystem.aggregate([{
   "$sort": { "numberOfMoons": -1 }
 }]).pretty();
 
-// sorting on more than one field
+// ordenando por más de un campo
 db.solarSystem.aggregate([{
   "$project": {
     "_id": 0,
@@ -82,7 +90,7 @@ db.solarSystem.aggregate([{
   "$sort": { "hasMagneticField": -1, "numberOfMoons": -1 }
 }]).pretty();
 
-// setting ``allowDiskUse`` option
+// estableciendo la opción ``allowDiskUse``
 db.solarSystem.aggregate([{
   "$project": {
     "_id": 0,

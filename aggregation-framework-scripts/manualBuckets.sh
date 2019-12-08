@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# create manual buckets using $ bucket
+# crear buckets manualmente usando $bucket
 mongo startups --eval '
 db.companies.aggregate( [
   { "$match": {"founded_year": {"$gt": 1980}, "number_of_employees": {"$ne": null}}  },
@@ -10,13 +10,13 @@ db.companies.aggregate( [
 }] )
 '
 
-# reproduce error message for non matching documents
+# reproducir un mensaje de error con documentos que no encajan en ningún bucket
 mongo startups --eval '
 db.coll.insert({ x: "a" });
 db.coll.aggregate([{ $bucket: {groupBy: "$x", boundaries: [0, 50, 100]}}])
 '
 
-# set `default` option to collect documents that do not match boundaries
+# establecer la opción `default` para recopilar los documentos que no encajan en buckets
 mongo startups --eval '
 db.companies.aggregate( [
   { "$match": {"founded_year": {"$gt": 1980}}},
@@ -27,12 +27,13 @@ db.companies.aggregate( [
 }] )
 '
 
-# reproduce error message for inconsitent boundaries datatype
+# reproducir un mensaje de error para fronteras que establecen límites con
+# distintos tipos de datos
 mongo startups --eval '
 db.coll.aggregate([{ $bucket: {groupBy: "$x", boundaries: ["a", "b", 100]}}])
 '
 
-# set `output` option for $bucket stage
+# establecer la opción `output` para la etapa $bucket
 mongo startups --eval '
 db.companies.aggregate([
   { "$match":

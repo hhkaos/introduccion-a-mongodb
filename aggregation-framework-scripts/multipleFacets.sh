@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# render several different facets using $facet stage
+# calculando múltiples dimensiones usando la etapa $facet
 mongo startups --eval 'db.companies.aggregate( [
     {"$match": { "$text": {"$search": "Databases"} } },
     { "$facet": {

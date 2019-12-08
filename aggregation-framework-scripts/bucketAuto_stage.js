@@ -1,4 +1,10 @@
-// using bucketAuto to calculate buckets for us
+/*****************************
+
+    Etapa: $bucketAuto
+
+******************************/
+
+// usar bucketAuto para que calcule los buckets por nosotros
 db.movies.aggregate([
   {
     "$bucketAuto": {
@@ -12,8 +18,8 @@ db.movies.aggregate([
   }
 ])
 
-// cleaning up the bucket boundaries by filtering out documents without an
-// imdb.rating field or a field that isn't numeric
+// limpiar los límites de los bucket filtrando documento que no tengan un campo
+// imdb.rating o este no contenga un valor numérico
 db.movies.aggregate([
   {
     "$match": { "imdb.rating": { "$gte": 0 } }
@@ -30,10 +36,10 @@ db.movies.aggregate([
   }
 ])
 
-// cardinality matters! Documents with the same value in the groupBy expression
-// **must** be put into the same bucket, meaning we may not get an even
-// distribution among buckets. This uses the title field to groupBy, a much more
-// unique value
+// la cardinalidad importa! Documentos con el mismo valor en la expresión
+// groupBy **tienen** que ser puestos en el mismo bucket, lo que significa que
+// podriamos obtener una distribución uniforme entre buckets. De este modo
+// podemos usar el campo $title para obtener un valor más único
 db.movies.aggregate([
   {
     "$bucketAuto": {
@@ -43,9 +49,9 @@ db.movies.aggregate([
   }
 ])
 
-// granularity testing
+// pruebas de granularidad
 
-// this is the function used in the video to generate the test collection
+// esta es la función usada en el vídeo para generar la colección de prueba
 function make_granularity_values() {
   for (let i = 0; i < 100; i++) {
     db.granularity_test.insertOne({
@@ -55,7 +61,7 @@ function make_granularity_values() {
   }
 }
 
-// testing powers of 2 granularity distributioin
+// probando la distribución de granularidad de $powers_of_2
 db.granularity_test.aggregate([
   {
     "$bucketAuto": {

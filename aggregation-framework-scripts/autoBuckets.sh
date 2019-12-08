@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# generate buckets automatically with $bucktAuto stage
+# generar buckets automaticamente con la etapa $bucketAuto
 mongo startups --eval 'db.companies.aggregate([
   { "$match": {"offices.city": "New York" }},
   {"$bucketAuto": {
@@ -9,7 +9,7 @@ mongo startups --eval 'db.companies.aggregate([
 }}])
 '
 
-# set `output` option for $bucketAuto
+# usar la opción `output` de $bucketAuto
 mongo startups --eval 'db.companies.aggregate([
   { "$match": {"offices.city": "New York" }},
   {"$bucketAuto": {
@@ -21,7 +21,7 @@ mongo startups --eval 'db.companies.aggregate([
 ])
 '
 
-# default $buckeAuto behaviour
+# comportamiento por defecto de $buckeAuto
 mongo startups --eval '
 for(i=1; i <= 1000; i++) {  db.series.insert( {_id: i}  ) };
 db.series.aggregate(
@@ -30,7 +30,7 @@ db.series.aggregate(
 })
 '
 
-# generate automatic buckets using granularity numerical series R20
+# generar buckets automáticamente usando la serie numérica R20
 mongo startups --eval 'db.series.aggregate(
   {$bucketAuto:
     {groupBy: "$_id", buckets: 5 , granularity: "R20"}

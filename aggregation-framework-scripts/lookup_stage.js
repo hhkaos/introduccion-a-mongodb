@@ -1,11 +1,14 @@
-// familiarizing with the air_alliances schema
+/*****************************
+
+    Etapa: $lookup
+
+******************************/
+
+// familiarizarse con el esquema de air_alliances
 db.air_alliances.findOne()
 
-// familiarizing with the air_airlines schema
-db.air_airlines.findOne()
-
-// performing a lookup, joining air_alliances with air_airlines and replacing
-// the current airlines information with the new values
+// realizar una búsqueda uniendo air_alliances con air_airlines y reemplazando
+// la información de las aerolíneas actuales con los nuevos valores
 db.air_alliances
   .aggregate([
     {

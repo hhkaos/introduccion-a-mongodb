@@ -1,4 +1,10 @@
-// grouping by year and getting a count per year using the { $sum: 1 } pattern
+/*****************************
+
+    Etapa: $group
+
+******************************/
+
+// agrupando por año y obteniendo un contar por año usando la expresión { $sum: 1 }
 db.movies.aggregate([
   {
     "$group": {
@@ -8,7 +14,7 @@ db.movies.aggregate([
   }
 ])
 
-// grouping as before, then sorting in descending order based on the count
+// agrupando como antes, luego ordenando de manera descendente en base al contador
 db.movies.aggregate([
   {
     "$group": {
@@ -21,8 +27,8 @@ db.movies.aggregate([
   }
 ])
 
-// grouping on the number of directors a film has, demonstrating that we have to
-// validate types to protect some expressions
+// agrupando el número de directores que tiene la película, demistrabdi que
+// tenemos que validar los tipos para proteger algunas expresiones
 db.movies.aggregate([
   {
     "$group": {
@@ -40,8 +46,8 @@ db.movies.aggregate([
   }
 ])
 
-// showing how to group all documents together. By convention, we use null or an
-// empty string, ""
+// mostrando cómo agrupar todos los documentos. Con convención, usamos null
+// o una cadena vacía, ""
 db.movies.aggregate([
   {
     "$group": {
@@ -51,7 +57,7 @@ db.movies.aggregate([
   }
 ])
 
-// filtering results to only get documents with a numeric metacritic value
+// filtrar resultados de recuperar sólo documentos con valor en "metacritic"
 db.movies.aggregate([
   {
     "$match": { "metacritic": { "$gte": 0 } }

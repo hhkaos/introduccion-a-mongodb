@@ -1,4 +1,10 @@
-// finding the top rated genres per year from 2010 to 2015...
+/*****************************
+
+    Etapa: $unwind
+
+******************************/
+
+// buscando los géneros mejor valorados entre 2010 y 2015...
 db.movies.aggregate([
   {
     "$match": {
@@ -24,9 +30,10 @@ db.movies.aggregate([
   }
 ])
 
-// unfortunately we got too many results per year back. Rather than peform some
-// other complex grouping and matching, we just append a simple group and sort
-// stage, taking advantage of the fact the documents are in the order we want
+// por desgracia obtuvimos demasiados resultados por años, así que en lugar de
+// realizar otra agrupación completa y coincidencia, simplemente vamos a añadir
+// unas etapas de agrupación ($group) y ordenación ($sort), aprovechándonos de
+// que los documentos están en el orden que queremos
 db.movies.aggregate([
   {
     "$match": {

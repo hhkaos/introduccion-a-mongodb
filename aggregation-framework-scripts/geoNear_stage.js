@@ -1,4 +1,10 @@
-// using ``$geoNear`` stage
+/*****************************
+
+    Etapa: $geoNear
+
+******************************/
+
+// usando la etapa ``$geoNear``
 db.nycFacilities.aggregate([
   {
     "$geoNear": {
@@ -12,7 +18,7 @@ db.nycFacilities.aggregate([
   }
 ]).pretty();
 
-// include ``limit`` to results
+// incluyendo ``limit`` a los resultados
 db.nycFacilities.aggregate([
   {
     $geoNear: {

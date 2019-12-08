@@ -1,20 +1,23 @@
-// $match all celestial bodies, not equal to Star
+/*****************************
+
+    Etapa: $match
+
+******************************/
+
+// coincide con todos los documentos cuyo tipo no sea igual a "Star"
 db.solarSystem.aggregate([{
   "$match": { "type": { "$ne": "Star" } }
 }]).pretty()
 
-// same query using find command
+// equialente al anterior pero usando el comando db.collection.find()
 db.solarSystem.find({ "type": { "$ne": "Star" } }).pretty();
 
-// count the number of matching documents
+// contar el número de documentos
 db.solarSystem.count();
 
-// using $count
+// usando $count
 db.solarSystem.aggregate([{
   "$match": { "type": { "$ne": "Star"} }
 }, {
   "$count": "planets"
 }]);
-
-// matching on value, and removing ``_id`` from projected document
-db.solarSystem.find({"name": "Earth"}, {"_id": 0});

@@ -1,17 +1,23 @@
-// project ``name`` and remove ``_id``
+/*****************************
+
+    Etapa: $project
+
+******************************/
+
+// proyectar ``name`` y eliminar ``_id``
 db.solarSystem.aggregate([{ "$project": { "_id": 0, "name": 1 } }]);
 
-// project ``name`` and ``gravity`` fields, including default ``_id``
+// proyectar campos ``name`` y ``gravity``, incluyendo por defecto ``_id``
 db.solarSystem.aggregate([{ "$project": { "name": 1, "gravity": 1 } }]);
 
-// using dot-notation to express the projection fields
+// proyectando un atributo de un documento usando la notación "propiedad.campo"
 db.solarSystem.aggregate([{ "$project": { "_id": 0, "name": 1, "gravity.value": 1 } }]);
 
-// reassing ``gravity`` field with value from ``gravity.value`` embeded field
+// reasignando el campos ``gravity``con el valor ``gravity.value`` embebido en el documento
 db.solarSystem.aggregate([{"$project": { "_id": 0, "name": 1, "gravity": "$gravity.value" }}]);
 
-// creating a document new field ``surfaceGravity``
+// creando un nuevo campo en el documento llamado ``surfaceGravity``
 db.solarSystem.aggregate([{"$project": { "_id": 0, "name": 1, "surfaceGravity": "$gravity.value" }}]);
 
-// creating a new field ``myWeight`` using expressions
+// creando un nuevo campos ``myWeight`` uusando una empresión
 db.solarSystem.aggregate([{"$project": { "_id": 0, "name": 1, "myWeight": { "$multiply": [ { "$divide": [ "$gravity.value", 9.8 ] }, 86 ] } }}]);

@@ -1,29 +1,30 @@
-s#!/bin/sh
+#!/bin/sh
 
-# find one company document
+# recuperar una documento de "companies"
 mongo startups --eval '
 db.companies.findOne()
 '
 
-# create text index
+# crear un índice de tipo texto
 mongo startups --eval '
 db.companies.createIndex({"description": "text", "overview": "text"})
 '
 
-# find companies matching term `networking` using text search
+# encontrar compañías que coincidan con el término `networking` usando una
+# búsqueda de texto
 mongo startups --eval '
 db.companies.aggregate([
   {"$match": { "$text": {"$search": "network"}  }  }] )
 '
 
-# $sortByCount single query facet for the previous search
+# consultar una dimensión simple con $sortByCount para la búsqueda anterior
 mongo startups --eval '
 db.companies.aggregate([
   {"$match": { "$text": {"$search": "network"}  }  },
   {"$sortByCount": "$category_code"}] )
 '
 
-# extend the pipeline for a more elaborate facet
+# extender el pipeline para una fimensión más elaborada
 mongo startups --eval '
 db.companies.aggregate([
   {"$match": { "$text": {"$search": "network"}  }  } ,
